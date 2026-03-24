@@ -76,29 +76,23 @@ def find_learner_record(df, learner_name_input):
     if not search_name:
         return None
 
-    # Try exact match first
-    possible_name_cols = [col for col in df.columns if "name" in col.lower()]
-    if not possible_name_cols:
+    child_name_col = "Child's name:"
+    if child_name_col not in df.columns:
         return None
 
-    learner_name_col = possible_name_cols[0]
-
-    exact_matches = df[df[learner_name_col].astype(str).str.strip().str.lower() == search_name]
+    exact_matches = df[
+        df[child_name_col].astype(str).str.strip().str.lower() == search_name
+    ]
     if not exact_matches.empty:
         return exact_matches.iloc[0]
 
-    # Then partial match
-    partial_matches = df[df[learner_name_col].astype(str).str.strip().str.lower().str.contains(search_name, na=False)]
+    partial_matches = df[
+        df[child_name_col].astype(str).str.strip().str.lower().str.contains(search_name, na=False)
+    ]
     if not partial_matches.empty:
         return partial_matches.iloc[0]
 
     return None
-
-def get_value(record, possible_columns):
-    for col in possible_columns:
-        if col in record.index:
-            return record[col]
-    return ""
 
 def append_attendance_row(row_data):
     tracker_ws.append_row(row_data, value_input_option="USER_ENTERED")
@@ -108,7 +102,7 @@ def append_attendance_row(row_data):
 # ----------------------------
 st.subheader("Search Learner")
 
-learner_search_name = st.text_input("Enter Learner Name")
+learner_search_name = st.text_input("Enter Child's Name")
 
 matched_record = None
 if learner_search_name.strip():
@@ -119,38 +113,44 @@ if learner_search_name.strip() and matched_record is None:
 elif matched_record is not None:
     st.success("Learner found.")
 
-    learner_name = get_value(matched_record, ["Learner Name", "learner_name", "Name", "Full Name"])
-    grade = get_value(matched_record, ["Grade", "grade"])
-    gender = get_value(matched_record, ["Gender", "gender"])
-    age = get_value(matched_record, ["Age", "age"])
-    parent_name = get_value(matched_record, ["Parent Name", "Parent / Guardian Name", "parent_name"])
-    parent_contact = get_value(matched_record, ["Parent Contact", "Parent / Guardian Contact", "Contact Number", "parent_contact"])
+    learner_name = str(matched_record.get("Child's name:", "")).strip()
+    grade = str(matched_record.get("Grade of the child:", "")).strip()
+    gender = str(matched_record.get("Gender", "")).strip()
+    age = str(matched_record.get("Scholar's age", "")).strip()
+    parent_name = str(matched_record.get("Parent name:", "")).strip()
+    school_name = str(matched_record.get("School Name", "")).strip()
+    chat_id = str(matched_record.get("chat_id", "")).strip()
+    subscription_plan = str(matched_record.get("Subscription plan", "")).strip()
 
     st.subheader("Learner Details")
 
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.text_input("Learner Name", value=str(learner_name), disabled=True)
+        st.text_input("Learner Name", value=learner_name, disabled=True)
     with col2:
-        st.text_input("Grade", value=str(grade), disabled=True)
+        st.text_input("Grade", value=grade, disabled=True)
     with col3:
-        st.text_input("Gender", value=str(gender), disabled=True)
+        st.text_input("Gender", value=gender, disabled=True)
 
-    col4, col5 = st.columns(2)
+    col4, col5, col6 = st.columns(3)
     with col4:
-        st.text_input("Age", value=str(age), disabled=True)
+        st.text_input("Age", value=age, disabled=True)
     with col5:
-        st.text_input("Parent Contact", value=str(parent_contact), disabled=True)
+        st.text_input("Parent Name", value=parent_name, disabled=True)
+    with col6:
+        st.text_input("School Name", value=school_name, disabled=True)
 
-    st.text_input("Parent / Guardian Name", value=str(parent_name), disabled=True)
+    col7, col8 = st.columns(2)
+    with col7:
+        st.text_input("Chat ID", value=chat_id, disabled=True)
+    with col8:
+        st.text_input("Subscription Plan", value=subscription_plan, disabled=True)
 
     # ----------------------------
     # SIGNATURE + SUBMIT
     # ----------------------------
     with st.form("dropoff_form", clear_on_submit=True):
         direction = st.selectbox("Direction", ["IN"])
-        notes = st.text_area("Notes")
-
         st.markdown("### Parent / Guardian Signature")
         st.caption("Use your finger on a tablet or mouse on a computer to sign below.")
 
@@ -182,17 +182,18 @@ elif matched_record is not None:
                     signature_b64 = image_to_base64(signature_image)
 
                     row_data = [
-                        time_stamp,
-                        scan_date,
-                        direction,
-                        grade,
-                        gender,
-                        age,
-                        learner_name,
-                        parent_name,
-                        parent_contact,
-                        notes,
-                        signature_b64
+                        time_stamp,          # time_stamp
+                        scan_date,           # scan_date
+                        direction,           # direction
+                        grade,               # Grade
+                        gender,              # Gender
+                        age,                 # Age
+                        learner_name,        # learner_name
+                        parent_name,         # parent_name
+                        school_name,         # school_name
+                        chat_id,             # chat_id
+                        subscription_plan,   # subscription_plan
+                        signature_b64        # signature_b64
                     ]
 
                     append_attendance_row(row_data)
