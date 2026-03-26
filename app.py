@@ -167,45 +167,41 @@ elif matched_record is not None:
 
         submitted = st.form_submit_button("Save Attendance")
 
-        if submitted:
-            if canvas_result.image_data is None:
-                st.error("Please add a signature before submitting.")
-            else:
-                try:
-                    now = datetime.now()
+if submitted:
+    if canvas_result.image_data is None:
+        st.error("Please add a signature before submitting.")
+    else:
+        try:
+            now = datetime.now()
 
-                    time_stamp = now.strftime("%Y-%m-%d %H:%M:%S")  # full datetime
-                    time = now.strftime("%H:%M:%S")                # time only ✅
-                    scan_date = now.strftime("%d-%b-%y")
+            time_stamp = now.strftime("%Y-%m-%d %H:%M:%S")
+            time = now.strftime("%H:%M:%S")
+            scan_date = now.strftime("%d-%b-%y")
 
-                    signature_image = Image.fromarray(
-                        (canvas_result.image_data[:, :, :3]).astype("uint8")
-                    )
-                    signature_b64 = image_to_base64(signature_image)
+            signature_image = Image.fromarray(
+                (canvas_result.image_data[:, :, :3]).astype("uint8")
+            )
+            signature_b64 = image_to_base64(signature_image)
 
-                    row_data = [
-                        time_stamp,          # time_stamp
-                        time,                # time
-                        scan_date,           # scan_date
-                        direction,           # direction
-                        grade,               # Grade
-                        gender,              # Gender
-                        age,                 # Age
-                        learner_name,        # learner_name
-                        parent_name,         # parent_name
-                        #school_name,         # school_name
-                        #chat_id,             # chat_id
-                        #subscription_plan,   # subscription_plan
-                        #signature_b64        # signature_b64
-                    ]
+            row_data = [
+                time_stamp,
+                time,
+                scan_date,
+                direction,
+                grade,
+                gender,
+                age,
+                learner_name,
+                parent_name,
+            ]
 
-                    append_attendance_row(row_data)
+            worksheet.append_row(row_data)
 
-                    st.success("Attendance recorded successfully ✅")
+            st.success("Attendance recorded successfully ✅")
 
-                    # 🔄 RESET FOR NEXT STUDENT
-                    st.rerun()
+            # 🔄 RESET FOR NEXT STUDENT
+            st.rerun()
 
-            except Exception as e:
-                    st.error(f"Error: {e}")
+        except Exception as e:
+            st.error(f"Error: {e}")
 
