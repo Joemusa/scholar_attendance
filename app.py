@@ -203,14 +203,9 @@ elif matched_record is not None:
 
                     st.success("Attendance saved successfully.")
                     st.info(f"{learner_name} has been registered for morning drop-off.")
+                    st.rerun()
 
                 except Exception as e:
                     st.error(f"An error occurred while saving the attendance: {e}")
 
 
-worksheet.append_row(row_data)
-
-st.success("Attendance recorded successfully ✅")
-
-# 🔄 Refresh app for next learner
-st.rerun()
