@@ -201,11 +201,11 @@ elif matched_record is not None:
 
                     append_attendance_row(row_data)
 
-                    st.success("Attendance saved successfully.")
-                    st.info(f"{learner_name} has been registered for morning drop-off.")
+                    st.success("Attendance recorded successfully ✅")
+
+                    # 🔄 RESET FOR NEXT STUDENT
                     st.rerun()
 
-                except Exception as e:
-                    st.error(f"An error occurred while saving the attendance: {e}")
-
+                    except Exception as e:
+                    st.error(f"Error: {e}")
 
