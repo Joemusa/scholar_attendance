@@ -190,10 +190,10 @@ elif matched_record is not None:
                         age,                 # Age
                         learner_name,        # learner_name
                         parent_name,         # parent_name
-                        school_name,         # school_name
-                        chat_id,             # chat_id
-                        subscription_plan,   # subscription_plan
-                        signature_b64        # signature_b64
+                        #school_name,         # school_name
+                        #chat_id,             # chat_id
+                        #subscription_plan,   # subscription_plan
+                        #signature_b64        # signature_b64
                     ]
 
                     append_attendance_row(row_data)
