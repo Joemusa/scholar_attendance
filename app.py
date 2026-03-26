@@ -173,7 +173,9 @@ elif matched_record is not None:
             else:
                 try:
                     now = datetime.now()
-                    time_stamp = now.strftime("%Y-%m-%d %H:%M:%S")
+
+                    time_stamp = now.strftime("%Y-%m-%d %H:%M:%S")  # full datetime
+                    time = now.strftime("%H:%M:%S")                # time only ✅
                     scan_date = now.strftime("%d-%b-%y")
 
                     signature_image = Image.fromarray(
