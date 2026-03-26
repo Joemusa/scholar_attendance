@@ -206,6 +206,6 @@ elif matched_record is not None:
                     # 🔄 RESET FOR NEXT STUDENT
                     st.rerun()
 
-                    except Exception as e:
+            except Exception as e:
                     st.error(f"Error: {e}")
 
