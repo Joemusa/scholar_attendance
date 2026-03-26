@@ -151,6 +151,7 @@ elif matched_record is not None:
     # ----------------------------
     with st.form("dropoff_form", clear_on_submit=True):
         direction = st.selectbox("Direction", ["IN"])
+        direction = st.selectbox("Direction", ["OUT"])
         st.markdown("### Parent / Guardian Signature")
         st.caption("Use your finger on a tablet or mouse on a computer to sign below.")
 
