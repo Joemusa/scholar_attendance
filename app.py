@@ -206,3 +206,11 @@ elif matched_record is not None:
 
                 except Exception as e:
                     st.error(f"An error occurred while saving the attendance: {e}")
+
+
+worksheet.append_row(row_data)
+
+st.success("Attendance recorded successfully ✅")
+
+# 🔄 Refresh app for next learner
+st.rerun()
