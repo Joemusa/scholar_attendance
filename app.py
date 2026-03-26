@@ -183,6 +183,7 @@ elif matched_record is not None:
 
                     row_data = [
                         time_stamp,          # time_stamp
+                        time,                # time
                         scan_date,           # scan_date
                         direction,           # direction
                         grade,               # Grade
