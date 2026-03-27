@@ -125,7 +125,7 @@ elif matched_record is not None:
 
     st.subheader("Learner Details")
 
-    col1, col2, col3, col4, col5 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text_input("Learner Name", value=learner_name, disabled=True)
     with col2:
