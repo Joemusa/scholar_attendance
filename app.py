@@ -119,9 +119,9 @@ elif matched_record is not None:
     gender = str(matched_record.get("Gender", "")).strip()
     age = str(matched_record.get("Scholar's age", "")).strip()
     parent_name = str(matched_record.get("Parent name:", "")).strip()
-    school_name = str(matched_record.get("School Name", "")).strip()
-    chat_id = str(matched_record.get("chat_id", "")).strip()
-    subscription_plan = str(matched_record.get("Subscription plan", "")).strip()
+    #school_name = str(matched_record.get("School Name", "")).strip()
+    #chat_id = str(matched_record.get("chat_id", "")).strip()
+    #subscription_plan = str(matched_record.get("Subscription plan", "")).strip()
 
     st.subheader("Learner Details")
 
@@ -138,14 +138,14 @@ elif matched_record is not None:
         st.text_input("Age", value=age, disabled=True)
     with col5:
         st.text_input("Parent Name", value=parent_name, disabled=True)
-    with col6:
-        st.text_input("School Name", value=school_name, disabled=True)
+    #with col6:
+        #st.text_input("School Name", value=school_name, disabled=True)
 
-    col7, col8 = st.columns(2)
-    with col7:
-        st.text_input("Chat ID", value=chat_id, disabled=True)
-    with col8:
-        st.text_input("Subscription Plan", value=subscription_plan, disabled=True)
+    #col7, col8 = st.columns(2)
+    #with col7:
+        #st.text_input("Chat ID", value=chat_id, disabled=True)
+    #with col8:
+        #st.text_input("Subscription Plan", value=subscription_plan, disabled=True)
 
     # ----------------------------
     # SIGNATURE + SUBMIT
