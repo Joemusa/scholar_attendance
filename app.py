@@ -130,7 +130,7 @@ def append_attendance_row(row_data):
 # ----------------------------
 st.subheader("Search Learner")
 
-learner_search_name = st.text_input("Enter Child's Name")
+learner_search_name = st.text_input("Enter Child's Name", key="search_name")
 
 matched_record = None
 if learner_search_name.strip():
@@ -239,6 +239,7 @@ if submitted:
 
             # ✅ Set success flag
             st.session_state["show_success"] = True
+            st.session_state["search_name"] = ""
 
             st.rerun()
 
