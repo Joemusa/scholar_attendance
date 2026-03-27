@@ -89,6 +89,24 @@ reg_df = load_registration_data()
 tracker_ws = get_tracker_worksheet()
 
 # ----------------------------
+# AGE DISTRIBUTION CHART
+# ----------------------------
+st.subheader("Age Distribution")
+
+# Load tracker data
+tracker_data = tracker_ws.get_all_records()
+tracker_df = pd.DataFrame(tracker_data)
+
+if not tracker_df.empty and "Age" in tracker_df.columns:
+    tracker_df["Age"] = tracker_df["Age"].astype(str).str.strip()
+
+    age_counts = tracker_df["Age"].value_counts()
+
+    st.bar_chart(age_counts)
+else:
+    st.info("No age data available")
+
+# ----------------------------
 # HELPERS
 # ----------------------------
 def image_to_base64(pil_image):
