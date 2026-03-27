@@ -226,7 +226,7 @@ if submitted:
         </div>
         """, unsafe_allow_html=True)
 
-        import time
+            import time
         time.sleep(1.5)
         st.rerun()
 
