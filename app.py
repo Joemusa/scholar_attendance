@@ -165,7 +165,16 @@ elif matched_record is not None:
             key="signature_canvas"
         )
 
-        submitted = st.form_submit_button("Save Attendance")
+        #submitted = st.form_submit_button("Save Attendance")
+
+with st.form("attendance_form"):
+
+    learner_name = st.text_input("Learner Name")
+    
+    # your canvas here
+    canvas_result = st_canvas(...)
+
+    submitted = st.form_submit_button("Submit")  # ✅ THIS DEFINES submitted
 
 if submitted:
     if canvas_result.image_data is None:
