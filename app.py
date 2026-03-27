@@ -19,6 +19,33 @@ st.set_page_config(
 
 st.title("🚌 Morning Drop-off Registration")
 
+if st.session_state.get("show_success"):
+
+    st.markdown("""
+    <div style="
+        position: fixed;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+        text-align: center;
+        z-index: 9999;
+    ">
+        <h2 style="color: green;">✅ Thank You!</h2>
+        <p>Attendance has been recorded successfully.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    import time
+    time.sleep(1.5)
+
+    # ✅ Clear flag and rerun again
+    st.session_state["show_success"] = False
+    st.rerun()
+
 # ----------------------------
 # GOOGLE SHEETS CONNECTION
 # ----------------------------
@@ -181,6 +208,9 @@ if submitted:
         st.error("Please add a signature before submitting.")
     else:
         try:
+            import pytz
+            from datetime import datetime
+
             sa_tz = pytz.timezone("Africa/Johannesburg")
             now = datetime.now(sa_tz)
 
@@ -205,32 +235,11 @@ if submitted:
                 parent_name,
             ]
 
-            # ✅ FIXED (correct worksheet)
             tracker_ws.append_row(row_data, value_input_option="USER_ENTERED")
 
-            st.markdown(
-                """
-                <div style="
-                    position: fixed;
-                    top: 30%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    background-color: white;
-                    padding: 30px;
-                    border-radius: 12px;
-                    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-                    text-align: center;
-                    z-index: 9999;
-                ">
-                    <h2 style="color: green;">✅ Thank You!</h2>
-                    <p>Attendance has been recorded successfully.</p>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+            # ✅ Set success flag
+            st.session_state["show_success"] = True
 
-            import time
-            time.sleep(1.5)
             st.rerun()
 
         except Exception as e:
