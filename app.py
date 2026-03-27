@@ -208,7 +208,7 @@ if submitted:
             # ✅ FIXED (correct worksheet)
             tracker_ws.append_row(row_data, value_input_option="USER_ENTERED")
 
-        st.markdown("""
+            st.markdown("""
            <div style="
                 position: fixed;
                 top: 30%;
