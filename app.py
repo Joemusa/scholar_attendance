@@ -7,6 +7,7 @@ from PIL import Image
 import io
 import base64
 from datetime import datetime
+import pytz
 
 # ----------------------------
 # PAGE CONFIG
@@ -180,7 +181,8 @@ if submitted:
         st.error("Please add a signature before submitting.")
     else:
         try:
-            now = datetime.now()
+            sa_tz = pytz.timezone("Africa/Johannesburg")
+            now = datetime.now(sa_tz)
 
             time_stamp = now.strftime("%Y-%m-%d %H:%M:%S")
             time = now.strftime("%H:%M:%S")
