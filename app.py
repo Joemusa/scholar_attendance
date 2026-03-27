@@ -227,6 +227,6 @@ if submitted:
         """, unsafe_allow_html=True)
 
             import time
-        time.sleep(1.5)
-        st.rerun()
+            time.sleep(1.5)
+            st.rerun()
 
