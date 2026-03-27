@@ -208,24 +208,30 @@ if submitted:
             # ✅ FIXED (correct worksheet)
             tracker_ws.append_row(row_data, value_input_option="USER_ENTERED")
 
-            st.markdown("""
-           <div style="
-                position: fixed;
-                top: 30%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: white;
-                padding: 30px;
-                border-radius: 12px;
-                box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
-                text-align: center;
-                z-index: 9999;
-            ">
-            <h2 style="color: green;">✅ Thank You!</h2>
-            <p>Attendance has been recorded successfully.</p>
-        </div>
-        """, unsafe_allow_html=True)
+            st.markdown(
+                """
+                <div style="
+                    position: fixed;
+                    top: 30%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background-color: white;
+                    padding: 30px;
+                    border-radius: 12px;
+                    box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+                    text-align: center;
+                    z-index: 9999;
+                ">
+                    <h2 style="color: green;">✅ Thank You!</h2>
+                    <p>Attendance has been recorded successfully.</p>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
 
             import time
             time.sleep(1.5)
             st.rerun()
+
+        except Exception as e:
+            st.error(f"Error: {e}")
