@@ -229,4 +229,3 @@ if submitted:
             import time
             time.sleep(1.5)
             st.rerun()
-
